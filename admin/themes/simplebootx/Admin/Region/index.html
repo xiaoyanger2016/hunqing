@@ -1,0 +1,84 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('region/index')}">{:L('ADMIN_REGION_LIST')}</a></li>
+			<li><a href="{:U('region/add')}">{:L('ADMIN_REGION_ADD')}</a></li>
+		</ul>
+		<div class="mrightTop">
+		  <div class="fontl">
+		    <form action="{:U('region/index')}" method="post">
+		       <div class="left">
+		          地区名称:
+		          <input class="form-control" style="width: 200px;" type="text" name="region_name" value="{$region_name}" />
+		          <input type="submit" class="btn btn-inverse" value="搜索" />
+		      </div>
+		    </form>
+		  </div>
+		</div>
+		<form class="js-ajax-form" action="{:U('Region/listorders')}" method="post">
+			<table class="table table-hover table-bordered table-list" id="menus-table">
+
+				<thead>
+					<tr>
+						<th width="80">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('ADMIN_REGION_NAME')}</th>
+						<th width="180">{:L('ADMIN_OPL')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<if condition="$list neq NULL">
+						<volist name="list" id="item">
+						<tr>
+						    <td style='padding-left:20px;'><input name='sort_order[{$item.region_id}]' type='text' size='3' value='{$item.sort_order}' class='input input-order'></td>
+						    <td>{$item.region_id}</td>
+						    <td>
+								<if condition="$item.switchs eq 1 ">
+							    	<img src="__TMPL__Public/images/tv-expandable.gif" ectype="flex" status="open" fieldid="{$item.region_id}">
+					            <else />
+					            	<img src="__TMPL__Public/images/tv-item.gif">
+					            </if>
+							    {$item.region_name}
+						    </td>
+							<td>
+								{$item.str_manage}
+							</td>
+						</tr>
+						</volist>
+					<else />
+						<tr style="height: 120px;">
+							<td align="center" colspan="10">暂无数据</td>
+						</tr>
+					</if>
+				</tbody>
+				
+			</table>
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:L('SORT')}</button>
+			</div>
+		</form>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		$(document).ready(function() {
+			Wind.css('treeTable');
+			Wind.use('treeTable', function() {
+				$("#menus-table").treeTable({
+					indent : 20
+				});
+			});
+		});
+
+		setInterval(function() {
+			var refersh_time = getCookie('refersh_time_admin_menu_index');
+			if (refersh_time == 1) {
+				reloadPage(window);
+			}
+		}, 1000);
+		setCookie('refersh_time_admin_menu_index', 0);
+	</script>
+</body>
+</html>

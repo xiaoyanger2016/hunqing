@@ -1,0 +1,115 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('store/index')}">{:L('ADMIN_STROE_LIST')}</a></li>
+			<li class="active"><a href="{:U('store/add')}">{:L('ADMIN_STROE_ADD')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('Store/add_post')}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">商家类型:</label>
+					<div class="controls">
+						<select name="type">
+							<option value="HQ">婚庆</option>
+							<option value="HOTEL">酒店</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">*商户名称:</label>
+					<div class="controls">
+						<input type="text" name="store_name">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">*店主姓名:</label>
+					<div class="controls">
+						<input type="text" name="owner_name" id="owner_name">
+						门店负责人姓名
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">*店主身份证号:</label>
+					<div class="controls">
+						<input type="text" name="owner_card" id="owner_card">
+						门店负责人身份证号
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">*店主手机号:</label>
+					<div class="controls">
+						<input type="text" name="mobile" id="mobile">
+						门店负责人手机号
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">*门店地址:</label>
+					<div class="controls">
+						<input type="text" name="address">
+						门店的详细地址
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">邮政编码:</label>
+					<div class="controls">
+						<input type="text" name="zipcode" id="zipcode">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">固定电话:</label>
+					<div class="controls">
+						<input type="text" name="tel" id="tel">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">QQ:</label>
+					<div class="controls">
+						<input type="text" name="im_qq" id="im_qq">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">到期时间:</label>
+					<div class="controls">
+						<input type="text" name="end_time" id="end_time">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">邮箱:</label>
+					<div class="controls">
+						<input type="text" name="email" id="email">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">排序:</label>
+					<div class="controls">
+						<input type="text" name="listorders" id="listorders">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">门店描述:</label>
+					<div class="controls">
+						<textarea name="description" rows="5" cols="57" style="width: 500px;"></textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">审核状态:</label>
+					<div class="controls">
+						<select name="state">
+							<option value="0">待审核</option>
+							<option value="1">审核通过</option>
+							<option value="3">人为关闭</option>
+						</select>
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+				<a class="btn" href="{:U('Store/index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

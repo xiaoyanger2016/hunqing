@@ -1,0 +1,103 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('store/index')}">{:L('ADMIN_STROE_LIST')}</a></li>
+			<li><a href="{:U('store/add')}">{:L('ADMIN_STROE_ADD')}</a></li>
+		</ul>
+		<div class="mrightTop">
+		  <div class="fontl">
+		    <form action="{:U('Store/index')}" method="post">
+		       <div class="left">
+		          <input type="hidden" name="mod" value="Store" />
+		          <input type="hidden" name="act" value="index" />
+		          商户类型：
+		          <select name="type" style="width: 100px;" class="form-control">
+						<option value="HQ" <if condition="$type eq 'HQ' ">selected=selected</if> >婚庆</option>
+						<option value="HOTEL" <if condition="$type eq 'HOTEL' ">selected=selected</if> >酒店</option>
+				  </select>
+		          商户名称:
+		          <input class="form-control" style="width: 200px;" type="text" name="store_name" value="{$store_name}" />
+		          注册时间
+		          <input class="js-datetime" type="text" id="input-datetime" placeholder="{$starttime}" name="starttime" value="{$starttime}"> —
+		          <input class="js-datetime" type="text" id="input-datetime" placeholder="{$endtime}" name="endtime" value="{$endtime}">
+		          <input type="submit" class="btn btn-inverse" value="搜索" />
+		      </div>
+		    </form>
+		  </div>
+		</div>
+		<form class="js-ajax-form" action="{:U('Store/listorders')}" method="post">
+			<table class="table table-hover table-bordered table-list" id="menus-table">
+
+				<thead>
+					<tr>
+						<th width="80">{:L('SORT')}</th>
+						<th width="50">ID</th>
+						<th>{:L('ADMIN_STROE_NAME')}</th>
+						<th>{:L('ADMIN_STROE_INFO')}</th>
+						<th width="80">{:L('ADMIN_STROE_TYPE')}</th>
+						<th width="100">{:L('ADMIN_STROE_ADDRESS')}</th>
+						<th>{:L('ADMIN_STROE_STATE')}</th>
+						<th>{:L('ADMIN_STROE_ADDTIME')}</th>
+						<th>{:L('ADMIN_STROE_ENDTIME')}</th>
+						<th width="180">{:L('ADMIN_OPL')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<if condition="$list neq NULL">
+						<volist name="list" id="item">
+						<tr>
+						    <td style='padding-left:20px;'><input name='listorders[{$item.store_id}]' type='text' size='3' value='{$item.listorders}' class='input input-order'></td>
+						    <td>{$item.store_id}</td>
+							<td>{$item.store_name}</td>
+							<td>
+								{:L('ADMIN_NAME')}:{$item.owner_name}<br/>
+								{:L('ADMIN_MOBILE')}:{$item.mobile}<br/>
+								{:L('ADMIN_CARD_NUM')}:{$item.owner_card}
+							</td>
+							<td>{$item.type}</td>
+							<td>{$item.address}</td>
+							<td>{$item.state}</td>
+							<td>{$item.add_time}</td>
+							<td>{$item.end_time}</td>
+							<td>
+								{$item.str_manage}
+							</td>
+						</tr>
+						</volist>
+					<else />
+						<tr style="height: 120px;">
+							<td align="center" colspan="10">暂无数据</td>
+						</tr>
+					</if>
+				</tbody>
+				
+			</table>
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:L('SORT')}</button>
+			</div>
+		</form>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		$(document).ready(function() {
+			Wind.css('treeTable');
+			Wind.use('treeTable', function() {
+				$("#menus-table").treeTable({
+					indent : 20
+				});
+			});
+		});
+
+		setInterval(function() {
+			var refersh_time = getCookie('refersh_time_admin_menu_index');
+			if (refersh_time == 1) {
+				reloadPage(window);
+			}
+		}, 1000);
+		setCookie('refersh_time_admin_menu_index', 0);
+	</script>
+</body>
+</html>
